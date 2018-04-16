@@ -54,6 +54,9 @@ See the file script for an example of the file format
 ARG_COMMANDS = [ 'push', 'pop', 'line', 'scale', 'move', 'rotate', 'save', 'circle', 'bezier', 'hermite', 'box', 'sphere', 'torus' ]
 
 def parse_file( fname, edges, polygons, transform, screen, color ):
+    coord = []
+    gcs = ident(new_matrix())
+    coord.append(gcs)
 
     f = open(fname)
     lines = f.readlines()
@@ -114,21 +117,21 @@ def parse_file( fname, edges, polygons, transform, screen, color ):
                       float(args[3]), float(args[4]), float(args[5]) )
 
         elif line == 'push':
-            temp = copy.deepcopy(transform[-1]) # making copy of current top element
-            transform.append(temp)
+            temp = copy.deepcopy(coord[-1]) # making copy of current top element
+            coord.append(temp)
 
         elif line == 'pop':
-            transform.pop()
+            coord.pop()
 
         elif line == 'scale':
             #print 'SCALE\t' + str(args)
             t = make_scale(float(args[0]), float(args[1]), float(args[2]))
-            transform[-1] = matrix_mult(transform[-1], t)
+            coord[-1] = matrix_mult(coord[-1], t)
 
         elif line == 'move':
             #print 'MOVE\t' + str(args)
             t = make_translate(float(args[0]), float(args[1]), float(args[2]))
-            transform[-1] = matrix_mult(transform[-1], t)
+            coord[-1] = matrix_mult(coord[-1], t)
 
         elif line == 'rotate':
             #print 'ROTATE\t' + str(args)
@@ -140,7 +143,8 @@ def parse_file( fname, edges, polygons, transform, screen, color ):
                 t = make_rotY(theta)
             else:
                 t = make_rotZ(theta)
-            transform[-1] = matrix_mult(transform[-1], t)
+            print "lol"
+            #coord[-1] = matrix_mult(coord[-1], t)
 
         elif line == 'clear':
             edges = []
