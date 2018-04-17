@@ -55,7 +55,8 @@ ARG_COMMANDS = [ 'push', 'pop', 'line', 'scale', 'move', 'rotate', 'save', 'circ
 
 def parse_file( fname, edges, polygons, transform, screen, color ):
     coord = []
-    gcs = ident(new_matrix())
+    gcs = new_matrix()
+    ident(gcs)
     coord.append(gcs)
 
     f = open(fname)
@@ -126,7 +127,8 @@ def parse_file( fname, edges, polygons, transform, screen, color ):
         elif line == 'scale':
             #print 'SCALE\t' + str(args)
             t = make_scale(float(args[0]), float(args[1]), float(args[2]))
-            coord[-1] = matrix_mult(coord[-1], t)
+            matrix_mult(coord[-1], t)
+            coord[-1] = t
 
         elif line == 'move':
             #print 'MOVE\t' + str(args)
