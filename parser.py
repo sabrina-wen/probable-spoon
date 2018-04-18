@@ -51,13 +51,13 @@ The file follows the following format:
 
 See the file script for an example of the file format
 """
-ARG_COMMANDS = [ 'push', 'pop', 'line', 'scale', 'move', 'rotate', 'save', 'circle', 'bezier', 'hermite', 'box', 'sphere', 'torus' ]
+ARG_COMMANDS = [ 'line', 'scale', 'move', 'rotate', 'save', 'circle', 'bezier', 'hermite', 'box', 'sphere', 'torus' ]
 
 def parse_file( fname, edges, polygons, transform, screen, color ):
     gcs = new_matrix()
     ident(gcs)
     transform.append(gcs)
-    print transform
+    #print transform
 
     f = open(fname)
     lines = f.readlines()
